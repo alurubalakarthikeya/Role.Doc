@@ -47,7 +47,7 @@ function getNextErrorMessage() {
       formData.append("query", input);
       formData.append("file_name", rawFileName);
 
-      const response = await fetch("http://localhost:8000/query", {
+      const response = await fetch("https://roledoc.onrender.com/query", {
         method: "POST",
         body: formData,
       });
