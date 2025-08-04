@@ -1,0 +1,107 @@
+/* src/styles/Docs.css */
+
+.docs-page {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fdfdfd;
+  padding-top: 80px;
+}
+
+.docs-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 5%;
+  background: white;
+  max-width: 1300px;
+  border-radius: 12px;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+
+
+.docs-text h1 {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  color: #9333ea;
+}
+
+.docs-text p {
+  font-size: 1.5rem;
+  color: #555;
+}
+
+.docs-illustration {
+  flex: 1 1 300px;
+  text-align: center;
+}
+
+.docs-illustration img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+}
+
+.docs-content {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.docs-content section {
+  margin-bottom: 2rem;
+}
+
+.docs-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #9333ea;
+}
+
+.docs-content p {
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.docs-content ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.docs-content li {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .docs-hero {
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .docs-text h1 {
+    font-size: 2rem;
+  }
+
+  .docs-text p {
+    font-size: 1rem;
+  }
+
+  .docs-content {
+    padding: 1.5rem;
+  }
+
+  .docs-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .docs-content p, .docs-content li {
+    font-size: 1rem;
+  }
+}

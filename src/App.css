@@ -1,8 +1,9 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  text-align: center;
+
+html, body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
 }
-
-
-
+body {
+  overflow-y: auto;
+}

@@ -8,14 +8,42 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url('../assets/background.png');
   padding: 20px;
   color: white;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
 }
 
+.main-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/background.png');
+  background-repeat: repeat-y;
+  background-size: auto;
+  animation: scrollBg 30s linear infinite;
+  filter: blur(1.5px);
+  z-index: -1;
+}
+
+@keyframes scrollBg {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+
+
 .upload-box {
-  background: rgba(255, 255, 255, 0.1); 
+  background: rgba(255, 255, 255, 0.1);
   color: #9333ea;
   border-radius: 1rem;
   padding: 10px 20px;
@@ -24,15 +52,13 @@
   text-align: center;
   box-shadow: 0 10px 30px rgba(155, 42, 183, 0.2);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(162, 0, 255, 0.5);
-  box-sizing: border-box;
   transition: all 0.3s ease-in-out;
 }
 
 .upload-box:hover {
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(202, 44, 241, 0.3);
+  border: 1px solid rgba(162, 0, 255, 0.9);
 }
 
 .upload-title {
@@ -46,17 +72,21 @@
   margin-bottom: 1.5rem;
 }
 
+.subtitle {
+  color: #9a60d0;
+  font-size: 1.7vh;
+}
+
 .upload-label {
   display: block;
   background-color: #9333ea;
   color: white;
-  padding: 0.05rem 0.25rem; 
+  padding: 0.05rem 0.25rem;
   border-radius: 0.75rem;
   border: 2px dashed #9333ea;
   margin-bottom: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  word-wrap: break-word;
   font-size: 0.95rem;
   text-align: center;
 }

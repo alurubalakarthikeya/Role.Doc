@@ -1,0 +1,80 @@
+.about-page {
+  background: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+  padding-top: 80px;
+}
+
+.about-hero {
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem 5%;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 12px;
+  max-width: 1300px;
+  width: 100%;
+}
+
+.about-text {
+  max-width: 600px;
+}
+
+.about-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+    color: #9333ea;
+}
+
+.about-text p {
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 1rem;
+}
+
+.about-illustration img {
+  max-width: 400px;
+}
+
+.about-values {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.about-values h2 {
+  margin-bottom: 1rem;
+    color: #9333ea;
+}
+
+.about-values ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.about-values li {
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+}
+
+.about-footer {
+  text-align: center;
+  padding: 2rem;
+  font-size: 0.9rem;
+  color: #9333ea;
+}
+
+@media (max-width: 768px){
+  .about-hero{
+    flex-direction: column;
+    gap: 3rem;
+    width: 100%;
+  }
+
+  .about-illustration img {
+  max-width: 400px;
+  width: 100%;
+}
+} 

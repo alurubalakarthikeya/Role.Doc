@@ -70,7 +70,6 @@ export default function UploadPage() {
       <div className="upload-box">
         <h1 className="upload-title">Upload a Document</h1>
         <p className="upload-subtitle">PDF, DOCX, or TXT only.</p>
-
         <label className="upload-label">
           <input
             type="file"
@@ -80,12 +79,12 @@ export default function UploadPage() {
           />
           <p>{file ? file.name : "Click or drag a file here to upload"}</p>
         </label>
-
-        {file && !uploading && (
+                {file && !uploading && (
           <button onClick={handleUpload} className="button-now">
             Upload & Continue
           </button>
         )}
+        <p className="subtitle">Note: pdf's work the best</p>
 
         {uploading && (
           <div className="progress-section">

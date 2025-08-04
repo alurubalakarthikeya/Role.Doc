@@ -1,14 +1,28 @@
-// src/pages/ChatPage.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import "../styles/Chat.css";
 import docProfIcon from "../assets/docprof.png";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function ChatPage() {
   const location = useLocation();
   const rawFileName = location.state?.fileName || "RoleDoc";
   const fileName = rawFileName.replace(/\.[^/.]+$/, "");
   const fileUrl = location.state?.fileUrl;
+  const errorMessages = [
+  "Error connecting to backend. Please try again.",
+  "Error occurred while processing your request.",
+  "An error occurred while processing your request.",
+  "Something went wrong. Please try again later."
+];
+
+let errorIndex = 0;
+function getNextErrorMessage() {
+  const message = errorMessages[errorIndex];
+  errorIndex = (errorIndex + 1) % errorMessages.length;
+  return message;
+}
+
 
   const [messages, setMessages] = useState([
     { type: "doc", text: `Hey! I'm ${fileName}. What do you want to know?` },
@@ -20,7 +34,7 @@ export default function ChatPage() {
   const chatRef = useRef(null);
 
   const handleSend = async () => {
-    if (!input.trim() || pendingQuery) return; // Prevent sending if waiting for reply
+    if (!input.trim() || pendingQuery) return;
 
     const userMsg = { type: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
@@ -41,31 +55,40 @@ export default function ChatPage() {
       const data = await response.json();
       let botResponse = data?.result || "Sorry, I couldn't find an answer.";
 
-      const trimmedInput = input.trim(); // Trim input for cleaner reply
+      if (data?.error) {
+        console.warn("Backend Error:", data.details || data.error);
+        botResponse = `Backend Error: ${data.error}`;
+      }
 
-      // Style it with persona
+      const trimmedInput = input.trim();
+
       switch (persona) {
         case "Formal":
-          botResponse = `You asked: "${trimmedInput}". Here is what I found: ${botResponse}`;
+          botResponse = ` ${botResponse}`;
           break;
         case "Sarcastic":
-          botResponse = `Wow, "${trimmedInput}" again? Here's what the doc *thinks*: ${botResponse} 🙄`;
+          botResponse = `${botResponse} 🙄`;
           break;
         case "Motivational":
-          botResponse = `Keep up the curiosity! About "${trimmedInput}": ${botResponse} 💪`;
+          botResponse = ` ${botResponse} 💪`;
           break;
         default:
-          botResponse = `You asked: "${trimmedInput}". Here's what I think! 😊 ${botResponse}`;
+          botResponse = ` ${botResponse}`;
       }
 
       const docMsg = { type: "doc", text: botResponse };
       setMessages((prev) => [...prev, docMsg]);
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        { type: "doc", text: "⚠️ Error talking to backend." },
-      ]);
-    } finally {
+  console.error("Request failed:", err);
+  setMessages((prev) => [
+    ...prev,
+    {
+      type: "doc",
+      text: getNextErrorMessage(),
+    },
+  ]);
+}
+ finally {
       setIsTyping(false);
       setPendingQuery(false);
     }
@@ -81,12 +104,46 @@ export default function ChatPage() {
     }
   }, [messages, isTyping]);
 
+    const containerRef = useRef(null);
+  const arrowRef = useRef(null);
+
+  useEffect(() => {
+    const updateArrowPosition = () => {
+      const container = containerRef.current;
+      const arrow = arrowRef.current;
+
+      if (!container || !arrow) return;
+
+      const scrollTop = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      const scrollableHeight = scrollHeight - clientHeight;
+
+      const scrollPercentage = scrollTop / scrollableHeight;
+      const containerHeight = container.clientHeight;
+      const arrowHeight = arrow.offsetHeight;
+
+      const maxTop = containerHeight - arrowHeight;
+      const arrowTop = scrollPercentage * maxTop;
+
+      arrow.style.top = `${arrowTop}px`;
+    };
+
+    window.addEventListener("scroll", updateArrowPosition);
+    window.addEventListener("load", updateArrowPosition);
+
+    return () => {
+      window.removeEventListener("scroll", updateArrowPosition);
+      window.removeEventListener("load", updateArrowPosition);
+    };
+  }, []);
+
   return (
     <div className="chat-wrapper">
       <div className="chat-container">
         <div className="chat-header">
           <span className="centered">
-            <img src={docProfIcon} alt="Document Icon" className="docProfile" />
+            <i className="fa-solid fa-robot"></i>
             <h3>{fileName}</h3>
           </span>
           <select value={persona} onChange={(e) => setPersona(e.target.value)}>
@@ -98,6 +155,9 @@ export default function ChatPage() {
         </div>
 
         <div ref={chatRef} className="chat-messages">
+          <div className="intro-message">
+            <p>Welcome to RoleDoc <i className="fa-solid fa-file" style={{ fontSize: "9px" }}></i>, ask it to summarize the content, act like a character <i className="fa-solid fa-person" style={{ fontSize: "9px" }}></i> from it, simplify a particular concept and more.</p>
+          </div>
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -108,7 +168,6 @@ export default function ChatPage() {
           ))}
           {isTyping && <div className="typing-indicator">{fileName} is typing...</div>}
         </div>
-
         <div className="chat-footer">
           <input
             type="text"
@@ -117,16 +176,15 @@ export default function ChatPage() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
+            disabled={pendingQuery}
           />
-          <button onClick={handleSend} className="send-btn">
-            Send
+          <button onClick={handleSend} className="send-btn" disabled={pendingQuery}>
+            {pendingQuery ? "..." : "Send"}
           </button>
         </div>
       </div>
-
-      {/* Right - Document Viewer */}
       <div className="doc-container">
-        <div className="doc-header">📄 {fileName}</div>
+        <div className="doc-header"> {fileName}</div>
         <div className="doc-content">
           {fileUrl ? (
             <iframe

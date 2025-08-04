@@ -6,7 +6,6 @@ export default function Navbar({ hideLinks = [] }) {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const links = [
-    { name: "Home", path: "/" },
     { name: "Upload", path: "/upload" },
     { name: "Docs", path: "/docs" },
     { name: "About", path: "/about" }
