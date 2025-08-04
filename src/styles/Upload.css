@@ -1,0 +1,131 @@
+* {
+  font-family: "TikTok Sans", sans-serif;
+}
+
+.main-content {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('../assets/background.png');
+  padding: 20px;
+  color: white;
+  box-sizing: border-box;
+}
+
+.upload-box {
+  background: rgba(255, 255, 255, 0.1); 
+  color: #9333ea;
+  border-radius: 1rem;
+  padding: 10px 20px;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(155, 42, 183, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(162, 0, 255, 0.5);
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+
+.upload-box:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.upload-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.upload-subtitle {
+  color: #9a60d0;
+  margin-bottom: 1.5rem;
+}
+
+.upload-label {
+  display: block;
+  background-color: #9333ea;
+  color: white;
+  padding: 0.05rem 0.25rem; 
+  border-radius: 0.75rem;
+  border: 2px dashed #9333ea;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  word-wrap: break-word;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.upload-label:hover {
+  background-color: #a855f7;
+}
+
+.hidden-input {
+  display: none;
+}
+
+.button-now {
+  background-color: #9333ea;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 250px;
+}
+
+.progress-section {
+  margin-top: 1.5rem;
+  width: 100%;
+}
+
+.progress-bar {
+  background-color: #e9d5ff;
+  height: 1rem;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #9333ea;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+@media (max-width: 480px) {
+  .upload-box {
+    padding: 1.5rem;
+  }
+
+  .upload-title {
+    font-size: 1.6rem;
+  }
+
+  .upload-label {
+    padding: 0.1rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .button-now {
+    font-size: 0.95rem;
+    padding: 0.75rem;
+  }
+
+  .progress-text {
+    font-size: 0.8rem;
+  }
+}
