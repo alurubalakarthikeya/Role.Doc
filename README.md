@@ -5,11 +5,14 @@
 > Currently in development — GPT integration!<br>
 
 
-## Tech Stack:
+## Tech Stack
 
-- **Frontend**: React.js, Tailwind CSS  
-- **Routing**: React Router DOM  
-- **Backend**: Node.js with OpenAI API
+- **Frontend**: React.js, CSS
+- **Routing**: React Router DOM
+- **Backend**: Python with FastAPI
+- **AI & Search**: FAISS, Transformers, RAG (Retrieval-Augmented Generation)
+- **Model**: OpenRouter LLM API
+- **Hosting**: Render, Vercel
 
 
 ## Features:
